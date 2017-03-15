@@ -1,0 +1,233 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Edit Software - {{ software.name }}{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-certificate'></i> Edit Software - {{ software.name }}</h1>
+    </div>
+    <!-- Page Heading End-->
+
+    {{ form.errors }}
+    <div class="row top-summary">
+        <div class="col-lg-12 col-md-6">
+            <div class="widget animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="text-box">
+                        <div class="widget">
+                            <div class="widget-content padding">
+                                <form class="form-horizontal" role="form" id="createSoftwareForm"
+                                      action="{% url 'software_edit' software.id %}" method="post">
+                                    {% csrf_token %}
+
+
+                                    <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Software Name *</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="name" value="{{ software.name }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Serial</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="serial" value="{{ software.serial }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Licensed to Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="licensed_to_name" value="{{ software.licensed_to_name }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Licensed to Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="licensed_to_email" value="{{ software.licensed_to_email }}">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Seats</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" name="seats" value="{{ software.seats }}">
+                                        </div>
+                                    </div>
+
+                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label">Is Software Operating System?</label>
+                                        <div class="col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="True" name="is_os" {% if software.is_os == 1 %}checked="checked"{% endif %}>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Reassignable</label>
+                                        <div class="col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" value="True" name="reassignable" {% if software.reassignable == 1 %}checked="checked"{% endif %}>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Supplier</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="supplier">
+                                                <option value="">Select Supplier</option>
+                                                {% for choice in form.supplier.field.queryset %}
+                                                <option value="{{ choice.pk }}" {% if choice.pk == software.supplier.pk %}selected="selected"{% endif %}>{{ choice.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Assigned to</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="assigned_to">
+                                                <option value="">Select User</option>
+                                                {% for choice in form.assigned_to.field.queryset %}
+                                                <option value="{{ choice.pk }}" {% if choice.pk == software.assigned_to.pk %}selected="selected"{% endif %}>{{ choice.fullname }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {#                                        <div class="col-sm-1">#}
+                                        {#                                            <button class="fa fa-plus"></button>#}
+                                        {#                                        </div>#}
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Purchase Date</label>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control datepicker-input"
+                                                       name="purchase_date" value="{{ software.purchase_date.month }}/{{ software.purchase_date.day }}/{{ software.purchase_date.year }}">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Order Number</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="order_number" value="{{ software.order_number }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Purchase Cost</label>
+                                        <div class="col-sm-4">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">$</span>
+                                                <input type="text" class="form-control" value="{{ software.purchase_cost }}"
+                                                       name="purchase_cost">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Expiration Date</label>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control datepicker-input"
+                                                       name="expiration_date" value="{{ software.expiration_date.month }}/{{ software.expiration_date.day }}/{{ software.expiration_date.year }}">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Maintained</label>
+                                        <div class="col-sm-10">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="maintained" {% if software.maintained == 1 %}checked="checked"{% endif %}>
+                                                    Yes
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Termination Date</label>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control datepicker-input"
+                                                       name="termination_date" value="{{ software.termination_date.month }}/{{ software.termination_date.day }}/{{ software.termination_date.year }}">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Notes</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group">
+                                    <textarea type="text" class="form-control" cols="140" rows="3" name="notes">
+                                        {{ software.notes }}
+                                        </textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <a href="{% url 'software' %}">
+                                        <button type="button" class="btn btn-danger">Cancel</button>
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    {#    <!--  Modal content for the above example -->#}
+    {#    <div class="modal fade create-hardware" tabindex="-1" role="dialog" aria-labelledby="createHardware"#}
+    {#         aria-hidden="true">#}
+    {#        <div class="modal-dialog modal-lg">#}
+    {#            <div class="modal-content">#}
+    {##}
+    {#                <div class="modal-header">#}
+    {#                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>#}
+    {#                    <h4 class="modal-title" id="createHardware">Create Hardware Model</h4>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    {% include "dashboard/layouts/create_hardware.html" %}#}
+    {#                </div>#}
+    {#            </div><!-- /.modal-content -->#}
+    {#        </div><!-- /.modal-dialog -->#}
+    {#    </div><!-- /.modal -->#}
+
+
+
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static "dashboard/assets/libs/bootstrap-validator/js/bootstrapValidator.min.js" %}"></script>
+    <script src="{% static "dashboard/assets/js/pages/form-validation.js" %}"></script>
+{% endblock %}

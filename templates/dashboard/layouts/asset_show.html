@@ -1,0 +1,156 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}View Asset{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-barcode'></i> View Asset: {{ asset.name }} {{ asset.asset_tag }}</h1>
+    </div>
+    <!-- Page Heading End-->                <!-- Your awesome content goes here -->
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+              <div class="widget-header">
+								<h2><strong>Asset</strong> Details</h2>
+                  <div class="additional-btn">
+									<a href="{% url 'asset_edit' asset.id %}" ><i class="fa fa-edit"></i> Edit Asset</a>
+									<a href="{% url 'asset_delete' asset.id %}" ><i class="fa fa-remove"></i> Remove</a>
+								</div>
+							</div>
+                <div class="widget-content padding">
+
+                    <p><strong>Manufacturer: </strong>{{ asset.model.manufacturer.name }}</p>
+                    <p><strong>Model: </strong>{{ asset.model.model }}</p>
+                    {% if asset.memory_size or asset.memory_type %}<p><strong>Memory Size: </strong>{{ asset.memory_size }} {{ asset.memory_type }}</p>{% endif %}
+                    {% if asset.cpu_speed %}<p><strong>Cpu Speed: </strong>{{ asset.cpu_speed }} GHz</p>{% endif %}
+                    {% if asset.cpu_count %}<p><strong>Total Cpu Core: </strong>{{ asset.cpu_count }}</p>{% endif %}
+                    {% if asset.disk_size %}<p><strong>Disk Size: </strong>{{ asset.disk_size }}</p>{% endif %}
+                    {% if asset.ip_address %}<p><strong>IP Address: </strong>{{ asset.ip_address }}</p>{% endif %}
+                    {% if asset.os %}<p><strong>Operating System: </strong>{{ asset.os.name }}</p>{% endif %}
+                    {% if asset.role %}<p><strong>Role: </strong>{{ asset.role }}</p>{% endif %}
+                    {% if asset.platform %}<p><strong>Platform: </strong>{{ asset.platform }}</p>{% endif %}
+                    {% if asset.company %}<p><strong>Company: </strong>{{ asset.company.name }}</p>{% endif %}
+                    {% if asset.purchase_data %}<p><strong>Purchase Date: </strong>{{ asset.purchase_date }}</p>{% endif %}
+                    {% if asset.supplier %}<p><strong>Supplier: </strong>{{ asset.supplier.name }}</p>{% endif %}
+                    {% if asset.order_name %}<p><strong>Order Number: </strong>{{ asset.order_number }}</p>{% endif %}
+                    {% if asset.purchase_cost %}<p><strong>Purchase Cost: </strong>$ {{ asset.purchase_cost }}</p>{% endif %}
+                    {% if asset.location %}<p><strong>Location: </strong>{{ asset.location.name }}</p>{% endif %}
+                    {% if asset.serial %}<p><strong>Serial: </strong>{{ asset.serial }}</p>{% endif %}
+                    {% if asset.notes %}<p><strong>Notes: </strong>{{ asset.notes }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+              <div class="widget-header">
+								<h2><strong>Software</strong> Assigned</h2>
+							</div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                            <table class="table table-striped" cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Serial</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                {% if asset.application.all %}
+                                {% for software in asset.application.all %}
+                                <tr>
+                                    <td><a href="{% url 'software_show' id_obj=software.pk %}">{% if software.is_os %}[OS] {% endif %}{{ software.name }}</a></td>
+                                    <td>{{ software.serial }}</td>
+                                <td>
+                                    {% if not software.is_os %}<button class="btn btn-primary">Unassign</button>{% endif %}
+                                </td>
+                                </tr>
+                                {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td>There is not software assigned for this Asset.</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                    <div class="form-group">
+                                        <label class="col-sm-8"><select class="form-control" name="software">
+                                                <option value="">Select Software</option>
+                                                {% for choice in softwares %}
+                                                <option value="{{ choice.pk }}">{{ choice.name }}</option>
+                                                {% endfor %}
+                                            </select></label>
+                                        <div class="col-sm-4">
+                                             <button type="submit" class="btn btn-primary">Assign</button>
+                                        </div>
+                                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+              <div class="widget-header">
+								<h2><strong>History</strong></h2>
+							</div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                            <table class="table table-striped" cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Summary</th>
+                                    <th>User</th>
+                                    <th>Date/Time</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                {% if history %}
+                                {% for h in history %}
+                                <tr>
+                                    <td>{% if h.action == 0 %}Create{% elif h.action == 1 %}Update{% endif %}</td>
+                                    <td>{{ h.changes_str }}</td>
+                                    <td>{{ h.actor.first_name }} {{ h.actor.last_name }}</td>
+                                    <td>{{ h.timestamp }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                            <tr>
+                                <td>There is not available history</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {% endif %}
+                                </tbody>
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

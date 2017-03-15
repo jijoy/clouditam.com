@@ -1,0 +1,54 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Edit Company - {{ company.name }}{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-building-o'></i> Edit Company - {{ company.name }}</h1>
+    </div>
+    <!-- Page Heading End-->
+
+    {{ form.errors }}
+    <div class="row top-summary">
+        <div class="col-lg-12 col-md-6">
+            <div class="widget animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="text-box">
+                        <div class="widget">
+                            <div class="widget-content padding">
+                                <form class="form-horizontal" role="form" id="createCompanyForm"
+                                      action="{% url 'company_edit' company.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Company Name *</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="name" value="{{ company.name }}">
+                                        </div>
+                                    </div>
+
+
+                                    <a href="{% url 'company' %}">
+                                        <button type="button" class="btn btn-danger">Cancel</button>
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static "dashboard/assets/libs/bootstrap-validator/js/bootstrapValidator.min.js" %}"></script>
+    <script src="{% static "dashboard/assets/js/pages/form-validation.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Invoices{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-file'></i> Invoices</h1>
+    </div>
+    <!-- Page Heading End-->                <!-- Your awesome content goes here -->
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-content">
+                    <div class="table-responsive">
+                        <table data-sortable class="table">
+                            <thead>
+                            <tr>
+                                <th>Invoice</th>
+                                <th>Amount</th>
+                                <th>Due Date</th>
+                                <th>Date Issued</th>
+                                <th>Status</th>
+                                <th data-sortable="false">Action</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td><strong>#122812</strong></td>
+                                <td>$9.95 USD</td>
+                                <td>January 01, 1985</td>
+                                <td>January 01, 1985</td>
+                                <td><span class="label label-success">Active</span></td>
+                                <td>
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="{% url 'invoice_detail' %}" data-toggle="tooltip" title="View" class="btn btn-default"><i
+                                                class="fa fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

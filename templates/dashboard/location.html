@@ -1,0 +1,84 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Location{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-globe'></i> Location</h1>
+    </div>
+    <!-- Page Heading End-->                <!-- Your awesome content goes here -->
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-header">
+								<h2><strong>All</strong> Locations</h2>
+								<div class="additional-btn">
+									<a href="{% url 'location_new' %}" ><i class="fa fa-plus"></i> Create New</a>
+								</div>
+							</div>
+                <div class="widget-content">
+                    <br>
+                    <div class="table-responsive">
+                        <form class='form-horizontal' role='form'>
+                            <table id="location-data" class="table table-striped table-bordered" cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Location Name</th>
+                                    <th>Parent</th>
+                                    <th>Asset</th>
+                                    <th>Asset Assigned</th>
+                                    <th>Currency</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Country</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                {% for d in data %}
+                                <tr>
+                                    <td>{{ d.name }}</td>
+                                    <td>{{ d.parent.name }}</td>
+                                    <td>{{ d.asset_set.count }}</td>
+                                    <td>0</td>
+                                    <td>{{ d.location_currency }}</td>
+                                    <td>{{ d.address }}</td>
+                                    <td>{{ d.city }}</td>
+                                    <td>{{ d.state }}</td>
+                                    <td>{{ d.country }}</td>
+                                     <td><div class="btn-group btn-group-xs">
+                                        <a href="{% url 'location_duplicate' d.id %}" data-toggle="tooltip" title="Duplicate" class="btn btn-blue-1"><i
+                                            class="fa fa-files-o"></i></a>
+                                        <a href="{% url 'location_edit' d.id %}" data-toggle="tooltip" title="Edit" class="btn btn-warning"><i
+                                                class="fa fa-pencil"></i></a>
+                                        <a href="{% url 'location_delete' d.id %}" data-toggle="tooltip" title="Remove" class="btn btn-danger"><i
+                                                class="fa fa-trash-o"></i></a>
+                                    </div></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_css %}
+    <link href="{% static "dashboard/assets/libs/jquery-datatables/css/dataTables.bootstrap.css" %}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{% static "dashboard/assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" %}"
+          rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static "dashboard/assets/libs/jquery-datatables/js/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "dashboard/assets/libs/jquery-datatables/js/dataTables.bootstrap.js" %}"></script>
+    <script src="{% static "dashboard/assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js" %}"></script>
+    <script src="{% static "dashboard/assets/js/pages/datatables.js" %}"></script>
+{% endblock %}

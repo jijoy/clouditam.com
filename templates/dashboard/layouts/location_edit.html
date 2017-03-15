@@ -1,0 +1,142 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %} Edit Location - {{ location.name }}{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-users'></i> Edit Location - {{ location.name }}</h1>
+    </div>
+    <!-- Page Heading End-->
+
+    {{ form.errors }}
+    <div class="row top-summary">
+        <div class="col-lg-12 col-md-6">
+            <div class="widget animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="text-box">
+                        <div class="widget">
+                            <div class="widget-content padding">
+                                <form class="form-horizontal" role="form" id="createLocationForm"
+                                      action="{% url 'location_edit' location.id %}" method="post">
+                                    {% csrf_token %}
+                                <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Location Name *</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="name" value="{{ location.name }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Parent</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="parent">
+                                                <option value="">Top Level</option>
+                                                 {% for choice in form.parent.field.queryset %}
+                                                <option value="{{ choice.pk }}" {% if choice.pk == location.parent.pk %}selected="selected"{% endif %}>{{ choice.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Location Currency</label>
+                                        <div class="col-sm-4">
+
+                                            <select class="form-control" name="location_currency">
+                                                <{% for value, choice in form.location_currency.field.choices %}
+                                                <option value="{{ value }}" {% if value == location.location_currency %}selected="selected"{% endif %}>{{ choice }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Address</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group">
+                                    <textarea type="text" class="form-control" cols="140" rows="3" name="address">
+                                        {{ location.address }}
+                                        </textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">City</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="city" value="{{ location.city }}">
+                                        </div>
+                                    </div>
+
+                                  <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">State</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" name="state" value="{{ location.state }}">
+                                        </div>
+                                    </div>
+
+                                <div class="form-group">
+                                        <label for="input-text" class="col-sm-2 control-label">Postal Code</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" name="postal_code" value="{{ location.postal_code }}">
+                                        </div>
+                                    </div>
+
+                                <div class="form-group">
+                                        <label class="col-sm-2 control-label">Country</label>
+                                        <div class="col-sm-4">
+
+                                            <select class="form-control" name="country">
+                                            <option value="">Select Country</option>
+                                                {% for choice in form.country.field.queryset %}
+                                                <option value="{{ choice.pk }}" {% if choice.pk == location.country.pk %}selected="selected"{% endif %}>{{ choice.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <a href="{% url 'location' %}">
+                                        <button type="button" class="btn btn-danger">Cancel</button>
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    {#    <!--  Modal content for the above example -->#}
+    {#    <div class="modal fade create-hardware" tabindex="-1" role="dialog" aria-labelledby="createHardware"#}
+    {#         aria-hidden="true">#}
+    {#        <div class="modal-dialog modal-lg">#}
+    {#            <div class="modal-content">#}
+    {##}
+    {#                <div class="modal-header">#}
+    {#                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>#}
+    {#                    <h4 class="modal-title" id="createHardware">Create Hardware Model</h4>#}
+    {#                </div>#}
+    {#                <div class="modal-body">#}
+    {#                    {% include "dashboard/layouts/create_hardware.html" %}#}
+    {#                </div>#}
+    {#            </div><!-- /.modal-content -->#}
+    {#        </div><!-- /.modal-dialog -->#}
+    {#    </div><!-- /.modal -->#}
+
+
+
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static "dashboard/assets/libs/bootstrap-validator/js/bootstrapValidator.min.js" %}"></script>
+    <script src="{% static "dashboard/assets/js/pages/form-validation.js" %}"></script>
+{% endblock %}

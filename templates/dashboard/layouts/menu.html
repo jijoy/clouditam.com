@@ -1,0 +1,51 @@
+{% load activeurl %}
+{% activeurl parent_tag="a" menu="no" %}
+    <ul>
+        <li><a href='{% url 'dashboard' %}'><i
+                class='fa fa-tachometer'></i><span>Dashboard</span></a>
+        </li>
+        <li class='has_sub'><a><i
+                class='fa fa-user'></i><span>Account</span><span class="pull-right"><i
+                class="fa fa-angle-down"></i></span></a>
+            <ul>
+                <li><a href='{% url 'subscription' %}'><span>Subscription</span></a></li>
+                <li><a href='{% url 'account-settings' %}'><span>Account Settings</span></a></li>
+{#                <li><a href='{% url 'biling' %}'><span>Biling</span></a></li>#}
+                <li><a href='{% url 'invoices' %}'><span>Invoices</span></a></li>
+            </ul>
+        </li>
+
+        <li><a href='{% url 'assets' %}'><i
+                class='fa fa-barcode'></i><span>Assets</span></a>
+        </li>
+        <li><a href='{% url 'hardware' %}'><i
+                class='fa fa-hdd-o'></i><span>Hardware</span></a>
+        </li>
+        <li><a href='{% url 'software' %}'><i
+                class='fa fa-certificate '></i><span>Software</span></a>
+        </li>
+        <li><a href='{% url 'users' %}'><i
+                class='fa fa-users'></i><span>Users</span></a>
+        </li>
+        <li><a href='{% url 'company' %}'><i
+                class='fa fa-building-o'></i><span>Company</span></a>
+        </li>
+        <li><a href='{% url 'location' %}'><i
+                class='fa fa-globe'></i><span>Location</span></a>
+        </li>
+        <li><a href='{% url 'manufacturers' %}'><i
+                class='fa fa-gears'></i><span>Manufacturers</span></a>
+        </li>
+        <li><a href='{% url 'supplier' %}'><i
+                class='fa fa-truck'></i><span>Supplier</span></a>
+        </li>
+{#        <li><a href='{% url 'reports' %}'><i#}
+{#                class='fa fa-bar-chart'></i><span>Reports</span></a>#}
+{#        </li>#}
+{#        <li><a href="#" class="md-trigger" data-modal="task-progress"><i#}
+{#                class='fa fa-info'></i><span>Progress</span></a>#}
+{#        </li>#}
+
+
+    </ul>
+{% endactiveurl %}

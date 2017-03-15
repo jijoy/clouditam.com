@@ -1,0 +1,172 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}User Details{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-user'></i> {{ user.fullname }}</h1>
+    </div>
+    <!-- Page Heading End-->                <!-- Your awesome content goes here -->
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+                <div class="widget-header">
+                    <h2><strong>Contact</strong> Information</h2>
+                    <div class="additional-btn">
+									<a href="{% url 'user_edit' user.id %}" ><i class="fa fa-edit"></i> Edit Asset</a>
+									<a href="{% url 'user_delete' user.id %}" ><i class="fa fa-remove"></i> Remove</a>
+								</div>
+                </div>
+                <div class="widget-content padding">
+
+                    {% if user.email %}<p><strong>Email: </strong>{{ user.email }}</p>{% endif %}
+                    {% if user.address %}<p><strong>Address: </strong>{{ user.address }}</p>{% endif %}
+                    {% if user.city %}<p><strong>City: </strong>{{ user.city }}</p>{% endif %}
+                    {% if user.state %}<p><strong>State: </strong>{{ user.state }}</p>{% endif %}
+                    {% if user.postal_code %}<p><strong>Postal Code: </strong>{{ user.postal_code }}</p>{% endif %}
+                    {% if user.country %}<p><strong>Country: </strong>{{ user.country }}</p>{% endif %}
+                    {% if user.phone_number %}<p><strong>Phone: </strong>{{ user.phone_number }}</p>{% endif %}
+                    {% if user.notes %}<p><strong>Notes: </strong>{{ user.notes }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+                <div class="widget-header">
+                    <h2><strong>Assets</strong> assigned to {{ user.fullname }}</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped" cellspacing="0"
+                               width="100%">
+                            <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Asset Tag</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+                            {% for o in assigned_assets %}
+                            <tr>
+                                <td>{{ o.model.model }}</td>
+                                <td><a href="{% url 'asset_show' tag=o.asset_tag %}">{{ o.asset_tag }}</a></td>
+                                <td>{{ o.name }}</td>
+                                <td>
+                                    <button class="btn btn-primary">Unassign</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+                <div class="widget-header">
+                    <h2><strong>Software</strong> Checked out to {{ user.fullname }}</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped" cellspacing="0"
+                               width="100%">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Serial</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+                            {% for o in assigned_softwares %}
+                            <tr>
+                                <td><a href="#">{{ o.name }}</a></td>
+                                <td>{{ o.serial }}</td>
+                                <td>
+                                    <button class="btn btn-primary">Checkin</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+                <div class="widget-header">
+                    <h2><strong>History</strong></h2>
+                </div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped" cellspacing="0"
+                               width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Summary</th>
+                                    <th>User</th>
+                                    <th>Date/Time</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                {% if history %}
+                                {% for h in history %}
+                                <tr>
+                                    <td>{% if h.action == 0 %}Create{% elif h.action == 1 %}Update{% endif %}</td>
+                                    <td>{{ h.changes_str }}</td>
+                                    <td>{{ h.actor.first_name }} {{ h.actor.last_name }}</td>
+                                    <td>{{ h.timestamp }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                            <tr>
+                                <td>There is not available history</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {% endif %}
+
+                                </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Subscription{% endblock %}
+{% block right_content %}
+    <div class="row top-summary">
+        <div class="col-lg-12 col-md-6">
+            <div class="widget red-1 animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="icon-user-3"></i>
+                    </div>
+                    <div class="text-box">
+                        <p class="maindata">YOUR<b> SUBSCRIPTION</b></p>
+                        <h2>{{ request.user.customer.plan_name }}
+                        </h2>
+                        <div class="clearfix"></div>
+                        <br>
+                        <table class="table table-responsive table-bordered">
+                            <tbody>
+                            <tr>
+                                <td>Plan</td>
+                                <td>{{ request.user.customer.type }}</td>
+                            </tr>
+                            <tr>
+                                <td>Asset Limit</td>
+                                <td>{{ request.user.customer.asset_limit }}</td>
+                            </tr>
+                            <tr>
+                                <td>Price</td>
+                                <td>${{ request.user.customer.price }}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <br>
+                        <h2>Details</h2>
+                        <p>{{ request.user.customer.details|safe }}</p>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <div class="widget darkblue-2 animated fadeInDown">
+                <div class="widget-content padding">
+
+                    <div class="text-box">
+                        <p class="maindata">CHANGE YOUR PLAN</p>
+                        <div class="clearfix"></div>
+                        {% for plan in plans %}
+                        <div class="col-lg-4 col-md-2">
+                            <div class="widget green-1 animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="icon-plus-1"></i>
+                    </div>
+                    <div class="text-box">
+                        <br>
+                        <h2>{{ plan.name }}
+                        </h2>
+                        <div class="clearfix"></div>
+                        <br>
+                        <table class="table table-responsive table-bordered">
+                            <tbody>
+                            <tr>
+                                <td>Plan</td>
+                                <td>{{ plan.type }}</td>
+                            </tr>
+                            <tr>
+                                <td>Asset Limit</td>
+                                <td>{% if plan.asset_limit == 0 %}Unlimitted{% else %}{{ plan.asset_limit }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td>Price</td>
+                                <td>${{ plan.price }}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <br>
+                        <h2>Details</h2>
+                        <p>{{ plan.details|safe }}</p>
+
+                        <div class="clearfix"></div>
+                        <a class="btn btn-danger btn-lg btn-block">Purchase</a>
+                    </div>
+                </div>
+
+            </div>
+
+                            </div>
+                        {% endfor %}
+
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

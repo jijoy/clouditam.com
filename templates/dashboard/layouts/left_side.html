@@ -1,0 +1,60 @@
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+        {#        <!-- Search form -->#}
+        {#        <form role="search" class="navbar-form">#}
+        {#            <div class="form-group">#}
+        {#                <input type="text" placeholder="Search" class="form-control">#}
+        {#                <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>#}
+        {#            </div>#}
+        {#        </form>#}
+        {#        <div class="clearfix"></div>#}
+        <!--- Profile -->
+        <div class="profile-info">
+            <div class="col-xs-8">
+                <div class="profile-text">Welcome <strong>{{ request.user.username }}</strong></div>
+                {#                <div class="profile-buttons">#}
+                {#                    <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>#}
+                {#                    <a href="#connect" class="open-right"><i class="fa fa-comments"></i></a>#}
+                {#                    <a href="javascript:;" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>#}
+                {#                </div>#}
+            </div>
+        </div>
+        <!--- Divider -->
+        <div class="clearfix"></div>
+        <hr class="divider"/>
+        <div class="clearfix"></div>
+        <!--- Divider -->
+        <div id="sidebar-menu">
+            {% include "dashboard/layouts/menu.html" %}
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+{#        <div class="portlets">#}
+{#            <div id="chat_groups" class="widget transparent nomargin">#}
+{#                <h2>Info</h2>#}
+{#                <div class="widget-content">#}
+{#                    <ul class="list-unstyled">#}
+{#                        <li><a><i class="fa fa-circle-o text-red-1"></i> Using 13/100 of your assets </a></li>#}
+{#                        <li><a><i class="fa fa-circle-o text-blue-1"></i> Using 13/100 of your assets </a></li>#}
+{#                        <li><a><i class="fa fa-circle-o text-green-1"></i> Using 13/100 of your assets </a></li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{##}
+{#        </div>#}
+        <div class="clearfix"></div>
+        <br><br><br>
+        <div class="left-footer widget transparent nomargin">
+            <span class="progress-precentage ">Using {{ request.user.customer.assets.all.count }}/{{ request.user.customer.asset_limit }} of your assets </span>
+            <div class="progress progress-xs">
+                <div data-toggle="tooltip" title="Current Assets {{ request.user.customer.assets.all.count }}/{{ request.user.customer.asset_limit }}" class="progress-bar bg-green-1"
+                     role="progressbar" aria-valuenow="{{ request.user.customer.assets.all.count }}" aria-valuemin="0"
+                     aria-valuemax="100" style="width: {{ bar }}%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

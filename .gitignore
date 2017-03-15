@@ -1,0 +1,11 @@
+;;extensions to ignore
+*.log
+*.pot
+*.pyc
+
+;;directories to ignore
+.idea/
+app/__pycache__/
+db.sqlite3
+staticfiles/
+media/

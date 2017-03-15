@@ -1,0 +1,172 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Software Details{% endblock %}
+{% block right_content %}
+    <!-- Page Heading Start -->
+    <div class="page-heading">
+        <h1><i class='fa fa-certificate'></i> Software Details: {% if software.is_os %}[OS] {% endif %}{{ software.name }}</h1>
+    </div>
+    <!-- Page Heading End-->                <!-- Your awesome content goes here -->
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+              <div class="widget-header">
+								<h2><strong>Software</strong> Details</h2>
+                  <div class="additional-btn">
+									<a href="{% url 'software_edit' software.id %}" ><i class="fa fa-edit"></i> Edit Software</a>
+									<a href="{% url 'software_delete' software.id %}" ><i class="fa fa-remove"></i> Remove</a>
+								</div>
+							</div>
+                <div class="widget-content padding">
+
+                    {% if software.serial %}<p><strong>Serial: </strong>{{ software.serial }}</p>{% endif %}
+                    {% if software.licensed_to_name %}<p><strong>Licensed To Name: </strong>{{ software.licensed_to_name }}</p>{% endif %}
+                    {% if software.licensed_to_email %}<p><strong>Licensed To Email: </strong>{{ software.licensed_to_email }}</p>{% endif %}
+                    {% if software.purchase_date %}<p><strong>Purchase Date: </strong>{{ software.purchase_date }}</p>{% endif %}
+                    {% if software.order_number %}<p><strong>Order Number: </strong>{{ software.order_number }}</p>{% endif %}
+                    {% if software.purchase_cost %}<p><strong>Purchase Cost: </strong>$ {{ software.purchase_cost }}</p>{% endif %}
+                    {% if software.seats %}<p><strong>Seats: </strong>{{ software.seats }}</p>{% endif %}
+                    {% if software.reassignable %}<p><strong>Reassignable: </strong>{{ software.reassignable }}</p>{% endif %}
+                    {% if software.maintained %}<p><strong>Maintained: </strong>{{ software.maintained }}</p>{% endif %}
+                    {% if software.supplier %}<p><strong>Supplier: </strong>{{ software.supplier }}</p>{% endif %}
+                    {% if software.expiration_date %}<p><strong>Expiration Date: </strong>{{ software.expiration_date }}</p>{% endif %}
+                    {% if software.termination_date %}<p><strong>Termination Date: </strong>{{ software.termination_date }}</p>{% endif %}
+                    {% if software.notes %}<p><strong>Notes: </strong>{{ software.notes }}</p>{% endif %}
+                    {% if software.notes %}<p><strong>Notes: </strong>{{ software.notes }}</p>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if not software.is_os %}
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+              <div class="widget-header">
+								<h2>{% if software.seats %}{{ software.seats }}{% else %}0{% endif %} License <strong>Seats</strong></h2>
+							</div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                            <table class="table table-striped" cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Seat</th>
+                                    <th>User</th>
+                                    <th>Asset</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                {% if software.software.all  %}
+                                    {% for i in software.software.all %}
+
+                                <tr>
+                                    <td>Seat {{ forloop.counter }}</td>
+                                    <td>{% if i.assigned_to %}<a href="{% url 'user_show' id_obj=i.assigned_to.id %}">{{ i.assigned_to.fullname }}</a></td>{% endif %}
+                                    <td>{% if i %}<a href="{% url 'asset_show' tag=i.asset_tag %}">{{ i.model.model }}</a></td>{% endif %}
+                                    <td><button class="btn btn-primary">Unassign</button></td>
+                                </tr>
+
+                                    {% endfor %}
+                                {% elif not software.seats %}
+                                    <tr>
+                                    <td>There is not available seat</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                    <td>Your seats ready to assign</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                            {% if software.seats %}
+
+                            <div class="form-group">
+                                        <label class="col-sm-5"><select class="form-control" name="software">
+                                                <option value="">Select User</option>
+                                                {% for choice in softwares %}
+                                                <option value="{{ choice.pk }}">{{ choice.name }}</option>
+                                                {% endfor %}
+                                            </select></label>
+                                        <label class="col-sm-5"><select class="form-control" name="software">
+                                                <option value="">Select Asset</option>
+                                                {% for choice in softwares %}
+                                                <option value="{{ choice.pk }}">{{ choice.name }}</option>
+                                                {% endfor %}
+                                            </select></label>
+                                        <div class="col-sm-2">
+                                             <button type="submit" class="btn btn-primary">Assign</button>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                </div>
+
+                    </div>
+                </div>
+              </div>
+            </div>
+    {% endif %}
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="widget">
+
+              <div class="widget-header">
+								<h2><strong>History</strong></h2>
+							</div>
+                <div class="widget-content">
+                    <div class="table-responsive">
+                            <table class="table table-striped" cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Summary</th>
+                                    <th>User</th>
+                                    <th>Date/Time</th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                {% if history %}
+                                {% for h in history %}
+                                <tr>
+                                    <td>{% if h.action == 0 %}Create{% elif h.action == 1 %}Update{% endif %}</td>
+                                    <td>{{ h.changes_str }}</td>
+                                    <td>{{ h.actor.first_name }} {{ h.actor.last_name }}</td>
+                                    <td>{{ h.timestamp }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                            <tr>
+                                <td>There is not available history</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            {% endif %}
+                                </tbody>
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Dashboard{% endblock %}
+{% block right_content %}
+    <div class="row top-summary">
+        <div class="col-lg-4 col-md-6">
+            <div class="widget green-1 animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="icon-barcode"></i>
+                    </div>
+                    <div class="text-box">
+                        <p class="maindata">TOTAL COUNT OF <b>ASSETS</b></p>
+                        <h2><span class="animate-number" data-value="{{ request.user.customer.assets.all.count }}" data-duration="1000">0</span>
+                        </h2>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <i class="fa fa-barcode rel-change"></i> <b>39%</b> of asset assigned
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="widget darkblue-2 animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="icon-certificate"></i>
+                    </div>
+                    <div class="text-box">
+                        <p class="maindata">TOTAL COUNT OF <b>SOFTWARE</b></p>
+                        <h2><span class="animate-number" data-value="{{ request.user.customer.softwares.all.count }}" data-duration="1000">0</span>
+                        </h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <i class="fa fa-certificate rel-change"></i> <b>11%</b> of software assigned
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="widget green-2 animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="text-box">
+                        <p class="maindata">TOTAL <b>USERS</b></p>
+                        <h2><span class="animate-number" data-value="{{ request.user.customer.dashusers.all.count }}" data-duration="1000">0</span>
+                        </h2>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <i class="fa fa-users rel-change"></i> <b>6%</b> of users assigned
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="btn-wrapper">
+
+                <a href="{% url "assets" %}" class="btn btn-success btn-lg btn-block">Assets Inventory Page</a>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="btn-wrapper">
+
+                <a href="{% url "software" %}" class="btn btn-primary btn-lg btn-block">Software Inventory Page</a>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="btn-wrapper">
+
+                <a href="{% url "users" %}" class="btn btn-green-2 btn-lg btn-block">Users Inventory Page</a>
+
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="row top-summary">
+        <div class="col-lg-4 col-md-6">
+            <div class="widget red-1 animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="icon-hdd"></i>
+                    </div>
+                    <div class="text-box">
+                        <p class="maindata">TOTAL COUNT OF <b>HARDWARE</b></p>
+                        <h2><span class="animate-number" data-value="{{ request.user.customer.hardwares.all.count }}" data-duration="1000">0</span>
+                        </h2>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <i class="fa fa-hdd-o rel-change"></i> <b>39%</b> of hardware assigned
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="widget blue-2 animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="fa fa-gears"></i>
+                    </div>
+                    <div class="text-box">
+                        <p class="maindata">TOTAL COUNT OF <b>MANUFACTURERS</b></p>
+                        <h2><span class="animate-number" data-value="{{ request.user.customer.manufacturers.all.count }}" data-duration="1000">0</span>
+                        </h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <i class="fa fa-gears rel-change"></i> <b>11%</b> of manufacturers assigned
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="widget warning animated fadeInDown">
+                <div class="widget-content padding">
+                    <div class="widget-icon">
+                        <i class="fa fa-truck"></i>
+                    </div>
+                    <div class="text-box">
+                        <p class="maindata">TOTAL <b>SUPPLIERS</b></p>
+                        <h2><span class="animate-number" data-value="{{ request.user.customer.suppliers.all.count }}" data-duration="1000">0</span>
+                        </h2>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="widget-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <i class="fa fa-truck rel-change"></i> <b>6%</b> of supplier assigned
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="btn-wrapper">
+
+                <a href="{% url "hardware" %}" class="btn btn-danger btn-lg btn-block">Hardware Inventory Page</a>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="btn-wrapper">
+
+                <a href="{% url "manufacturers" %}" class="btn btn-blue-2 btn-lg btn-block">Manufacturers Inventory Page</a>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="btn-wrapper">
+
+                <a href="{% url "supplier" %}" class="btn btn-warning btn-lg btn-block">Supplier Inventory Page</a>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

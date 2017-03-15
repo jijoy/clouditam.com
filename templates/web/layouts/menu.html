@@ -1,0 +1,12 @@
+<li><a href="#home" class="active">HOME</a></li>
+{% if request.user.is_authenticated %}
+    <li><a href="{% url "dashboard" %}" class="login-button hidden-lg hidden-desktop">DASHBOARD</a></li>
+    <li><a href="{% url "account-settings" %}" class="login-button hidden-lg hidden-desktop">ACCOUNT</a></li>
+{% endif %}
+<li><a href="#features">FEATURES</a></li>
+<li><a href="#demos">DEMOS</a></li>
+<li><a href="#pricing">PRICING</a></li>
+<li><a href="#clients">CLIENTS</a></li>
+<li><a href="#about">ABOUT</a></li>
+<li><a href="#contact">CONTACT</a></li>
+<li><a href="{% url "logout" %}" class="login-button hidden-lg hidden-desktop">Sign Out</a></li>

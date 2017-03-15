@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<div class="topbar" xmlns="http://www.w3.org/1999/html">
+    <div class="topbar-left">
+        <div class="logo">
+            <h1><a href="#"><img style="height: 20px;" src="{% static "dashboard/assets/img/cloud.png" %}" alt="Logo"></a></h1>
+        </div>
+        <button class="button-menu-mobile open-left">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+    <!-- Button mobile view to collapse sidebar menu -->
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-collapse2">
+                    <ul class="nav navbar-nav hidden-xs">
+                        <li><a href="{% url 'index' %}"><i
+                                class='fa fa-home'></i><span> Home</span></a>
+                        </li>
+                        <li><a href='#'><i
+                                class='fa fa-child'></i><span> Clients</span></a>
+                        </li>
+                        <li><a href='#'><i
+                                class='fa fa-phone'></i><span> Contact</span></a>
+                        </li>
+                        <li><a href='#'><i
+                                class='fa fa-info'></i><span> About</span></a>
+                        </li>
+                        <li><a class="md-trigger" data-modal="logout-modal"><i
+                                class='icon-logout-1'></i><span>Sign Out</span></a>
+                        </li>
+
+                    </ul>
+                <ul class="nav navbar-nav navbar-right top-navbar">
+
+                    {#                    <li class="dropdown iconify hide-phone"><a href="#"#}
+                    {#                                                               onclick="javascript:toggle_fullscreen()"><i#}
+                    {#                            class="icon-resize-full-2"></i></a></li>#}
+                    <li class="dropdown topbar-profile">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                class="text-blue-1">Dear,</span>
+                            {% if request.user.first_name or request.user.last_name %}
+                                {{ request.user.first_name }} <strong>{{ request.user.last_name }}</strong> {% else %}
+                                {{ request.user.username }} {% endif %}<i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Account</a></li>
+                            <li><a href="#">Change Password</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="icon-help-2"></i> Help</a></li>
+                            <li><a class="md-trigger" data-modal="logout-modal"><i class="icon-logout-1"></i>
+                                Sign Out</a></li>
+                        </ul>
+                    </li>
+                    {#                    <li class="right-opener">#}
+                    {#                        <a href="javascript:;" class="open-right"><i class="fa fa-angle-double-left"></i><i#}
+                    {#                                class="fa fa-angle-double-right"></i></a>#}
+                    {#                    </li>#}
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>

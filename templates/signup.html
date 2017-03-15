@@ -1,0 +1,79 @@
+{% extends 'dashboard/base.html' %}
+{% load staticfiles %}
+{% block page_title %}Sign-In{% endblock %}
+{% block body_class %}login-page{% endblock %}
+{% block login_page %}
+    <div class="container login-page">
+        <div class="container">
+            <div class="full-content-center animated flipInX">
+                <h2 class="text-center">CloudITAM</h2>
+                <div class="login-wrap">
+                    <div class="login-block">
+                        {% if redirect_to %}
+                            <form role="form" action="{% url "signup" %}?next={{ redirect_to }}" method="post">
+                        {% else %}
+                            <form role="form" action="{% url "signup" %}" method="post">
+                        {% endif %}
+                        {% csrf_token %}
+                        <div class="form-group login-input">
+                            <i class="fa fa-envelope overlay"></i>
+                            <input type="text" class="form-control text-input" placeholder="E-mail"
+                                   name="email">
+                        </div>
+                        <div class="form-group login-input">
+                            <i class="fa fa-user overlay"></i>
+                            <input type="text" class="form-control text-input" placeholder="Username"
+                                   name="username">
+                        </div>
+                        <div class="form-group login-input">
+                            <i class="fa fa-key overlay"></i>
+                            <input type="password" class="form-control text-input" placeholder="********"
+                                   name="password">
+                        </div>
+                        <div class="checkbox"><label><input type="checkbox" class="form-control"> I accept
+                            <strong><a href='#'>Terms and Conditions</a></strong></label></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-default btn-block">Signup</button>
+                            </div>
+                        </div>
+                        </form>
+
+                        <div class="row">
+                            <p class="text-center">Or <strong>Signup With</strong></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="{% url 'social:begin' 'twitter' %}">
+                                    <button class="btn btn-twitter btn-block"><i class="fa fa-twitter"></i>Twitter
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{% url 'social:begin' 'linkedin' %}">
+                                    <button class="btn btn-linkedin btn-block"><i class="fa fa-linkedin"></i>Linkedin
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-sm-4">
+                                <a href="{% url 'social:begin' 'google-oauth2' %}">
+                                    <button class="btn btn-google-plus btn-block"><i class="fa fa-google"></i>Google
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        {% if error_msg %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="alert alert-danger nomargin">
+                                        {{ error_msg }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
